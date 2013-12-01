@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source common.sh
+
+manage_mongod testcluster_a0 --replSet=a --smallfiles
+manage_mongod testcluster_a1 --replSet=a --smallfiles
+manage_mongod testcluster_a2 --replSet=a --smallfiles
