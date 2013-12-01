@@ -18,6 +18,6 @@ function manage_mongod() {
         fi
     else
         echo "$1 container doesnt exist. Creating..."
-        docker run -d -name=$1 klj613:centos64_mongod $2 > /dev/null
+        docker run -d -name=$1 klj613:centos64_mongod ${*:2} > /dev/null
     fi
 }
