@@ -9,4 +9,6 @@ RUN yum install -y mongo-10gen-server
 VOLUME /data/db
 VOLUME /var/log/mongo
 
-ENTRYPOINT ["/usr/bin/mongod"]
+ADD bootstrap /bootstrap
+
+ENTRYPOINT ["/bootstrap"]

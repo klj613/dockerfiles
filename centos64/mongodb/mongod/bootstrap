@@ -1,0 +1,7 @@
+#!/bin/bash
+
+while ! grep -q ^up$ /sys/class/net/eth1/operstate 2> /dev/null
+    do sleep 1
+done
+
+/usr/bin/mongod $@

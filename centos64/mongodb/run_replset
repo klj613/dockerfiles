@@ -3,5 +3,10 @@
 source common.sh
 
 manage_mongod testcluster_a0 --replSet=a --smallfiles
+pipework br1 $(container_id testcluster_a0) 192.168.32.1/24
+
 manage_mongod testcluster_a1 --replSet=a --smallfiles
+pipework br1 $(container_id testcluster_a1) 192.168.32.2/24
+
 manage_mongod testcluster_a2 --replSet=a --smallfiles
+pipework br1 $(container_id testcluster_a2) 192.168.32.3/24

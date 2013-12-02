@@ -8,6 +8,10 @@ function container_running() {
     sudo docker ps | sed 1d | sed 's/ *$//g' | grep $1\$ > /dev/null
 }
 
+function container_id() {
+    sudo docker ps | sed 1d | sed 's/ *$//g' | grep $1\$ | awk '{print $1}'
+}
+
 function manage_mongod() {
     if container_exists $1; then
         if container_running $1; then
