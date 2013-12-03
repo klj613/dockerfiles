@@ -1,4 +1,4 @@
-FROM centos:6.4
+FROM centos:latest
 
 RUN yum update -y
 RUN yum install -y gcc-c++ make sqlite-devel ruby ruby-devel rubygems

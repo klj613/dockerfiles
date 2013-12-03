@@ -1,4 +1,4 @@
-FROM centos:6.4
+FROM centos:latest
 
 RUN yum update -y && yum upgrade -y
 

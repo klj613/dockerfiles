@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker build -t="klj613:centos64_mailcatcher" .
