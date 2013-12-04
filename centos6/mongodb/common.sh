@@ -22,6 +22,24 @@ function manage_mongod() {
         fi
     else
         echo "$1 container doesnt exist. Creating..."
-        docker run -d -name=$1 klj613:centos64_mongod ${*:2} > /dev/null
+        docker run -d -name=$1 klj613:centos6_mongod /usr/bin/mongod ${*:2} > /dev/null
     fi
+}
+
+function mongo_replset_config() {
+    docker run -d klj613:centos6_mongod /usr/bin/mongo $@ 
+}
+
+function wait_for_connections() {
+    while ! sudo docker logs $1 | grep "\[initandlisten\] waiting for connections on port" > /dev/null;
+    do
+        sleep 2
+    done
+}
+
+function wait_for_repl_config() {
+    while ! sudo docker logs $1 | grep "startupStatus" > /dev/null;
+    do
+        sleep 2
+    done
 }

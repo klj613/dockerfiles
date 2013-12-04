@@ -3,10 +3,21 @@
 source common.sh
 
 manage_mongod testcluster_a0 --replSet=a --smallfiles
-pipework br1 $(container_id testcluster_a0) 192.168.32.1/24
+pipework br1 $(container_id testcluster_a0) 192.168.32.1/24 2> /dev/null
 
 manage_mongod testcluster_a1 --replSet=a --smallfiles
-pipework br1 $(container_id testcluster_a1) 192.168.32.2/24
+pipework br1 $(container_id testcluster_a1) 192.168.32.2/24 2> /dev/null
 
 manage_mongod testcluster_a2 --replSet=a --smallfiles
-pipework br1 $(container_id testcluster_a2) 192.168.32.3/24
+pipework br1 $(container_id testcluster_a2) 192.168.32.3/24 2> /dev/null
+
+wait_for_connections testcluster_a0
+wait_for_connections testcluster_a1
+wait_for_connections testcluster_a2
+
+EVAL="printjson(rs.initiate());printjson(rs.add('192.168.32.1'));printjson(rs.add('192.168.32.2'));printjson(rs.add('192.168.32.3'));"
+ID=$(mongo_replset_config "--host 192.168.32.1 --eval $EVAL")
+pipework br1 $ID 192.168.32.4/24
+
+wait_for_repl_config $ID
+docker rm $ID > /dev/null
