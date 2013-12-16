@@ -1,4 +1,4 @@
-FROM klj613:centos6
+FROM klj613_centos6/base
 
 RUN yum update -y && yum upgrade -y
 RUN yum install -y nginx php55u php55u-fpm php55u-pecl-jsonc git
