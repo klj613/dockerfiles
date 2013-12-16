@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm -rf ./app/app/cache/*
+docker build -t="klj613:centos6_symfony2" .
