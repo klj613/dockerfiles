@@ -1,0 +1,55 @@
+#!/bin/sh
+
+yum install -y git svn
+
+chmod 777 /tmp/docker-ide -R
+
+#################
+### SSH setup ###
+#################
+
+yum -y install openssh-server
+
+/etc/init.d/sshd start && /etc/init.d/sshd stop && sed -i 's/session required pam_loginuid.so/#session required pam_loginuid.so/g' /etc/pam.d/sshd && sed -i   's/session required pam_loginuid.so/#session required pam_loginuid.so/g' /etc/pam.d/login
+
+echo "UseDns no" | tee -a /etc/ssh/sshd_config && echo "LogLevel VERBOSE" | tee -a /etc/ssh/sshd_config && echo "PermitRootLogin no" | tee -a /etc/ssh/sshd_config
+
+yum install -y sudo
+
+useradd -d /home/docker -s /bin/bash docker 
+mkdir /home/docker/.ssh -p  
+cp /tmp/docker-ide/authorized_keys /home/docker/.ssh/authorized_keys 
+chown docker:root -R /home/docker/.ssh 
+chmod 700 /home/docker/.ssh -R
+chown docker:root /home/docker/.ssh/authorized_keys && chmod 600 /home/docker/.ssh/authorized_keys
+
+echo "docker ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/docker_all
+
+##################
+### bash setup ###
+##################
+
+cd /tmp/docker-ide/bashconfig && ./setup /home/docker
+
+#################
+### vim setup ###
+#################
+
+yum install -y gcc ncurses-devel
+make --directory=/tmp/docker-ide/vim-source
+make --directory=/tmp/docker-ide/vim-source install
+
+##################
+### vim config ###
+##################
+
+cd /tmp/docker-ide/vimconfig && ./setup /home/docker
+
+#################
+### php setup ###
+#################
+
+#/tmp/docker-ide/php_setup php5
+/tmp/docker-ide/php_setup php53u
+#/tmp/docker-ide/php_setup php54
+#/tmp/docker-ide/php_setup php55u

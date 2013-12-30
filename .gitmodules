@@ -1,3 +1,9 @@
 [submodule "centos6/phalcon/phalcon"]
 	path = centos6/phalcon/phalcon
 	url = git://github.com/phalcon/cphalcon.git
+[submodule "centos6/ide/bashconfig"]
+	path = centos6/ide/sources/bashconfig
+	url = https://github.com/klj613/bashconfig.git
+[submodule "centos6/ide/vimconfig"]
+	path = centos6/ide/sources/vimconfig
+	url = git@github.com:klj613/vimconfig.git
