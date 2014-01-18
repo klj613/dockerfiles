@@ -1,7 +1,7 @@
 FROM klj613_centos6/base
 
 RUN yum update -y && yum upgrade -y
-RUN yum install -y nginx git php55u php55u-fpm php55u-pecl-memcached php55u-mbstring php55u-opcache php55u-pecl-jsonc
+RUN yum install -y nginx git php55u php55u-fpm php55u-mbstring php55u-opcache php55u-pecl-jsonc
 
 RUN echo "listen = /var/run/php5-fpm.sock" >> /etc/php-fpm.d/www.conf
 RUN rm -rf /etc/nginx/conf.d/*
