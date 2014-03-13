@@ -8,7 +8,6 @@ RUN yum update -y
 RUN yum install -y java-openjdk jenkins
 
 VOLUME /home/jenkins/.jenkins
-ADD bootstrap /bootstrap
 EXPOSE 8080
 USER jenkins
 
